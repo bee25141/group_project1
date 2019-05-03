@@ -34,7 +34,8 @@ $(function () {
     var flockaDay = (data.getCurrentUserDailyFlockatime())
     for (i=0; i<flockaDay.length; i++){
       console.log(flockaDay[i]);
-      flockaDayConverted = flockaDay[i].time.toFixed(2);
+      // flockaDayConverted = flockaDay[i].time.toFixed(2);
+      flockaDayConverted = flockaDay[i];
       console.log(flockaDayConverted);
       flockaDataset.push(flockaDayConverted);
     }
@@ -199,7 +200,7 @@ $(function () {
 
 //D3 bar graph for User Code Time Last 7 Days
 var flockaDataset = [];
-console.log(dataset);
+console.log(flockaDataset);
 function barGraphDisplay(){
   var dataset = flockaDataset;
   var svgWidth = 900;
