@@ -1,4 +1,3 @@
-
 $(function () {
   var app = {
     authListener: notificationService.addObserver('AUTH_SIGNIN', this, handleSignIn),
@@ -32,7 +31,7 @@ $(function () {
     }
     //Pulling data for user daily time and calling function to display the bar graph
     var flockaDay = (data.getCurrentUserDailyFlockatime())
-    for (i=0; i<flockaDay.length; i++){
+    for (i = 0; i < flockaDay.length; i++) {
       console.log(flockaDay[i]);
       flockaDayConverted = flockaDay[i].time.toFixed(2);
       console.log(flockaDayConverted);
@@ -194,19 +193,22 @@ $(function () {
   })
 
 
-  
+
 });
 
 //D3 bar graph for User Code Time Last 7 Days
 var flockaDataset = [];
 console.log(dataset);
-function barGraphDisplay(){
+
+function barGraphDisplay() {
   var dataset = flockaDataset;
   var svgWidth = 900;
   var svgHeight = 250;
   var barPadding = 5;
   var barWidth = (svgWidth / dataset.length);
   var svg = d3.select('svg').attr("width", svgWidth).attr("height", svgHeight).attr("class", "bar-chart");
+
+  // var xScale = d3.scale.ordinal().rangeRoundBands([0, width], .03)
 
   var yScale = d3.scaleLinear()
     .domain([0, d3.max(dataset)])
@@ -229,6 +231,13 @@ function barGraphDisplay(){
       return "translate(" + translate + ")";
     });
 
+  xScale.domain(data.map(function (d) {
+    return d.time;
+  }));
+  yScale.domain([0, d3.max(data, function (d) {
+    return d.date;
+  })])
+
   var text = svg.selectAll("text")
     .data(dataset)
     .enter()
@@ -243,7 +252,7 @@ function barGraphDisplay(){
       return barWidth * i;
     })
     .attr("fill", "white");
-  };
+};
 
 //Creating Leaderboard Display
 function leaderboardDisplay(rank, userName, total, dailyAverage) {
